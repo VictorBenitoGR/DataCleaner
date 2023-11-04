@@ -33,38 +33,40 @@ names(dataset)
 
 # /// Select/reorder the relevant columns after select(dataset,___,___,___)
 
-dataset <- select(dataset, fechahoraUTC, Timestamp, idUsuario, idConversacion,
-                  idMensaje, canal, categoria, nombreBot, tipo)
+dataset <- select(dataset, column1, column2, column3, column4, column5,
+                  column6, column7, column8)
 
 # /// Rename column names
 
-colnames(dataset) <- c("DateTimeUTC", "DateTimeLocal",  "IDUser",
-                       "IDConversation", "IDMessage", "Channel",
-                       "Category", "Version", "Type")
+colnames(dataset) <- c("ColumnName1", "ColumnName2", "ColumnName3",
+                       "ColumnName4", "ColumnName5", "ColumnName6",
+                       "ColumnName7", "ColumnName8")
 
 
 # === FITLER === --------------------------------------------------------------
 
 # /// See the unique entries in each column
 
-levels(factor(dataset$Channel))
+levels(factor(dataset$ColumnName1))
 
-levels(factor(dataset$Version))
+levels(factor(dataset$ColumnName2))
 
 # /// Write here the entries you want to keep, the rest will be omitted
 
-dataset <- dataset[(dataset$Channel == "webchat")
-                   & (dataset$Version %in% c("bot-chbot2-tec-prod",
-                                             "bot-chbot-tec-prod")),]
+dataset <- dataset[(dataset$ColumnName1 == "Only this here")
+                   & (dataset$ColumnName2 %in% c("We want this", "This too")),]
 
 
 # === DATES AND TIME === ------------------------------------------------------
 
 # /// Redo date and time columns
 
-dataset$DateUTC <- substr(dataset$DateTimeUTC,1,10)
+# Example: Having a UTC timestamp like this 2021-07-13T15:00:05.7020736Z
+#                                           123456.....................28
 
-dataset$TimeUTC <- substr(dataset$DateTimeUTC, 12,19)
+dataset$DateUTC <- substr(dataset$TimestampColumn, 1, 10)
+
+dataset$TimeUTC <- substr(dataset$TimestampColumn, 12, 19)
 
 dataset$DateTimeUTC <- paste(dataset$DateUTC,dataset$TimeUTC, sep = ' ')
 
@@ -80,33 +82,33 @@ dataset$DateTimeLocal <- dataset$DateTimeUTC - 18000
 
 # /// Select/reorder the relevant columns after select(dataset,___,___,___)
 
-dataset <- select(dataset, DateTimeUTC, DateTimeLocal, IDUser, IDConversation,
-                  IDMessage, Channel, Category, Version, Type)
+dataset <- select(dataset, DateTimeUTC, DateTimeLocal, ColumnName3, ColumnName4,
+                  ColumnName5, ColumnName6, ColumnName7, ColumnName8)
 
 
 # === URL DOMAINS === ---------------------------------------------------------
 
 # /// Get the unique entries to find out how many different domains there are
 
-unique(dataset$Category)
+unique(dataset$ColumnNameX)
 
 # /// It's TRUE when a column result has the URL we want to simplify
 
-dataset$Category <- case_when(
-  str_detect(dataset$Category, "experiencia") ~ "Experiencia21",
-  str_detect(dataset$Category, "mitec") ~ "MiTec",
-  str_detect(dataset$Category, "tecdemonterrey") ~ "TecDeMonterrey",
-  str_detect(dataset$Category, "sharepoint") ~ "TecMXSharePoint",
-  str_detect(dataset$Category, "ProgramasInternacionales") ~
+dataset$ColumnNameX <- case_when(
+  str_detect(dataset$ColumnNameX, "experiencia") ~ "Experiencia21",
+  str_detect(dataset$ColumnNameX, "mitec") ~ "MiTec",
+  str_detect(dataset$ColumnNameX, "tecdemonterrey") ~ "TecDeMonterrey",
+  str_detect(dataset$ColumnNameX, "sharepoint") ~ "TecMXSharePoint",
+  str_detect(dataset$ColumnNameX, "ProgramasInternacionales") ~ 
     "ProgramasInternacionales",
-  str_detect(dataset$Category, "localhost") ~ "LocalHost",
-  str_detect(dataset$Category, "estadodecuenta") ~ "EstadoDeCuenta",
-  TRUE ~ dataset$Category
+  str_detect(dataset$ColumnNameX, "localhost") ~ "LocalHost",
+  str_detect(dataset$ColumnNameX, "estadodecuenta") ~ "EstadoDeCuenta",
+  TRUE ~ dataset$ColumnNameX
 )
 
 # /// Verify that each URL is simplified to their domain name
 
-unique(dataset$Category)
+unique(dataset$ColumnNameX)
 
 
 # === EXPORT === --------------------------------------------------------------
