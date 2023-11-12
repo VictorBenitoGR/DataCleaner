@@ -95,11 +95,11 @@ unique(dataset$ColumnNameX)
 # /// It's TRUE when a column result has the URL we want to simplify
 
 dataset$ColumnNameX <- case_when(
-  str_detect(dataset$ColumnNameX, "urldomain1") ~ "CleanDomainName1",
-  str_detect(dataset$ColumnNameX, "urldomain2") ~ "CleanDomainName2",
-  str_detect(dataset$ColumnNameX, "urldomain3") ~ "CleanDomainName3",
-  str_detect(dataset$ColumnNameX, "urldomain4") ~ "CleanDomainName4",
-  str_detect(dataset$ColumnNameX, "urldomain5") ~ "CleanDomainName5",
+  str_detect(dataset$ColumnNameX, "urldomain1") ~ "ReadableDomainName1",
+  str_detect(dataset$ColumnNameX, "urldomain2") ~ "ReadableDomainName2",
+  str_detect(dataset$ColumnNameX, "urldomain3") ~ "ReadableDomainName3",
+  str_detect(dataset$ColumnNameX, "urldomain4") ~ "ReadableDomainName4",
+  str_detect(dataset$ColumnNameX, "urldomain5") ~ "ReadableDomainName5",
   TRUE ~ dataset$ColumnNameX
 )
 
