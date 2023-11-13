@@ -1,9 +1,9 @@
-# = = = = = = = = = = = = = = = = = = = = = = =
-# DataCleaner
-# https://github.com/VictorBenitoGR/DataCleaner
-# = = = = = = = = = = = = = = = = = = = = = = =
+# * = = = = = = = = = = = = = = = = = = = = = =
+# * DataCleaner
+# * https://github.com/VictorBenitoGR/DataCleaner
+# * = = = = = = = = = = = = = = = = = = = = = =
 
-# === PACKAGES === ------------------------------------------------------------
+# *** PACKAGES *** ------------------------------------------------------------
 
 # install.packages("PackageName")
 
@@ -14,7 +14,7 @@ library("openxlsx") # Reading/writing/editing excel files
 library("stringr") # Strings (text) manipulation
 
 
-# === FILE === ----------------------------------------------------------------
+# *** FILE *** ----------------------------------------------------------------
 
 getwd() # Change Working Directory with setwd("/path/to/DataCleaner") if needed
 
@@ -25,41 +25,41 @@ dataset <- read.csv("data/dataset.csv") # Change according to your file name
 str(dataset) # Quick overview of the general structure
 
 
-# === COLUMN NAMES === --------------------------------------------------------
+# *** COLUMN NAMES *** --------------------------------------------------------
 
-# /// Analyze the clarity of the column names
+# * Analyze the clarity of the column names
 
 names(dataset)
 
-# /// Select/reorder the relevant columns after select(dataset,___,___,___)
+# * Select/reorder the relevant columns after select(dataset,___,___,___)
 
 dataset <- select(dataset, column1, column2, column3, column4, column5,
                   column6, column7, column8)
 
-# /// Rename column names
+# * Rename column names
 
 colnames(dataset) <- c("ColumnName1", "ColumnName2", "ColumnName3",
                        "ColumnName4", "ColumnName5", "ColumnName6",
                        "ColumnName7", "ColumnName8")
 
 
-# === FITLER === --------------------------------------------------------------
+# *** FILTER *** --------------------------------------------------------------
 
-# /// See the unique entries in each column
+# * See the unique entries in each column
 
 levels(factor(dataset$ColumnName1))
 
 levels(factor(dataset$ColumnName2))
 
-# /// Write here the entries you want to keep, the rest will be omitted
+# * Write here the entries you want to keep, the rest will be omitted
 
 dataset <- dataset[(dataset$ColumnName1 == "Only this here")
                    & (dataset$ColumnName2 %in% c("We want this", "This too")),]
 
 
-# === DATES AND TIME === ------------------------------------------------------
+# *** DATES AND TIME *** ------------------------------------------------------
 
-# /// Redo date and time columns
+# * Redo date and time columns
 
 # Example: Having a UTC timestamp like this 2021-07-13T15:00:05.7020736Z
 #                                           123456.....................28
@@ -74,25 +74,25 @@ dataset$DateTimeUTC <- as.POSIXct(dataset$DateTimeUTC, tz = "UTC")
 
 class(dataset$DateTimeUTC) # The result must be "POSIXct" and "POSIXt"
 
-# /// Get local time
+# * Get local time
 
 # In this example the difference between UTC and Monterrey MX
 # is -5 hours, equal to -18000 seconds
 dataset$DateTimeLocal <- dataset$DateTimeUTC - 18000
 
-# /// Select/reorder the relevant columns after select(dataset,___,___,___)
+# * Select/reorder the relevant columns after select(dataset,___,___,___)
 
 dataset <- select(dataset, DateTimeUTC, DateTimeLocal, ColumnName3, ColumnName4,
                   ColumnName5, ColumnName6, ColumnName7, ColumnName8)
 
 
-# === URL DOMAINS === ---------------------------------------------------------
+# *** URL DOMAINS *** ---------------------------------------------------------
 
-# /// Get the unique entries to find out how many different domains there are
+# * Get the unique entries to find out how many different domains there are
 
 unique(dataset$ColumnNameX)
 
-# /// It's TRUE when a column result has the URL we want to simplify
+# * It's TRUE when a column result has the URL we want to simplify
 
 dataset$ColumnNameX <- case_when(
   str_detect(dataset$ColumnNameX, "urldomain1") ~ "ReadableDomainName1",
@@ -103,12 +103,12 @@ dataset$ColumnNameX <- case_when(
   TRUE ~ dataset$ColumnNameX
 )
 
-# /// Verify that each URL is simplified to their domain name
+# * Verify that each URL is simplified to their domain name
 
 unique(dataset$ColumnNameX)
 
 
-# === EXPORT === --------------------------------------------------------------
+# *** EXPORT *** --------------------------------------------------------------
 
 # The file will be exported to the project's "data" folder
 
@@ -119,10 +119,10 @@ write.csv(dataset, "data/CleanDataset.csv", row.names = FALSE)
 CleanDataset <- read.csv("data/CleanDataset.csv")
 
 
-# === DELETE TEST === ---------------------------------------------------------
+# *** DELETE TEST *** ---------------------------------------------------------
 
-# /// If you are programming for the official repository, make sure that no
-#     generated file is going to be pushed.
+# ! If you are programming for the official repository, make sure that no
+# ! generated file is going to be pushed.
 
 # testPath <- "data/CleanDataset.csv"
 
