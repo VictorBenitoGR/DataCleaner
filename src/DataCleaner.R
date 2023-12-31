@@ -1,7 +1,7 @@
-# * = = = = = = = = = = = = = = = = = = = = = =
+# * = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # * DataCleaner
 # * https://github.com/VictorBenitoGR/DataCleaner
-# * = = = = = = = = = = = = = = = = = = = = = =
+# * = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 # *** PACKAGES *** ------------------------------------------------------------
 
@@ -33,14 +33,17 @@ names(dataset)
 
 # * Select/reorder the relevant columns after select(dataset,___,___,___)
 
-dataset <- select(dataset, column1, column2, column3, column4, column5,
-                  column6, column7, column8)
+dataset <- select(
+  dataset, column1, column2, column3, column4, column5,
+  column6, column7, column8
+)
 
 # * Rename column names
 
-colnames(dataset) <- c("ColumnName1", "ColumnName2", "ColumnName3",
-                       "ColumnName4", "ColumnName5", "ColumnName6",
-                       "ColumnName7", "ColumnName8")
+colnames(dataset) <- c(
+  "ColumnName1", "ColumnName2", "ColumnName3", "ColumnName4",
+  "ColumnName5", "ColumnName6", "ColumnName7", "ColumnName8"
+)
 
 
 # *** FILTER *** --------------------------------------------------------------
@@ -53,8 +56,8 @@ levels(factor(dataset$ColumnName2))
 
 # * Write here the entries you want to keep, the rest will be omitted
 
-dataset <- dataset[(dataset$ColumnName1 == "Only this here")
-                   & (dataset$ColumnName2 %in% c("We want this", "This too")),]
+dataset <- dataset[(dataset$ColumnName1 == "Only this here") &
+                     (dataset$ColumnName2 %in% c("We want this", "This too")), ]
 
 
 # *** DATES AND TIME *** ------------------------------------------------------
@@ -68,7 +71,7 @@ dataset$DateUTC <- substr(dataset$TimestampColumn, 1, 10)
 
 dataset$TimeUTC <- substr(dataset$TimestampColumn, 12, 19)
 
-dataset$DateTimeUTC <- paste(dataset$DateUTC,dataset$TimeUTC, sep = ' ')
+dataset$DateTimeUTC <- paste(dataset$DateUTC, dataset$TimeUTC, sep = " ")
 
 dataset$DateTimeUTC <- as.POSIXct(dataset$DateTimeUTC, tz = "UTC")
 
@@ -82,8 +85,10 @@ dataset$DateTimeLocal <- dataset$DateTimeUTC - 18000
 
 # * Select/reorder the relevant columns after select(dataset,___,___,___)
 
-dataset <- select(dataset, DateTimeUTC, DateTimeLocal, ColumnName3, ColumnName4,
-                  ColumnName5, ColumnName6, ColumnName7, ColumnName8)
+dataset <- select(
+  dataset, DateTimeUTC, DateTimeLocal, ColumnName3, ColumnName4,
+  ColumnName5, ColumnName6, ColumnName7, ColumnName8
+)
 
 
 # *** URL DOMAINS *** ---------------------------------------------------------
@@ -116,7 +121,7 @@ write.csv(dataset, "data/CleanDataset.csv", row.names = FALSE)
 
 # Look at it as a dataframe if you want
 
-CleanDataset <- read.csv("data/CleanDataset.csv")
+clean_dataset <- read.csv("data/CleanDataset.csv")
 
 
 # *** DELETE TEST *** ---------------------------------------------------------
